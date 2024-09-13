@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>벽돌 계산기</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        label, input {
+            display: block;
+            margin: 10px 0;
+        }
+        input[type="text"] {
+            width: 200px;
+            padding: 8px;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>벽돌 계산기</h1>
+    <label for="height">벽돌의 세로(mm):</label>
+    <input type="text" id="height" placeholder="벽돌의 세로(mm)">
+    
+    <label for="width">벽돌의 가로(mm):</label>
+    <input type="text" id="width" placeholder="벽돌의 가로(mm)">
+    
+    <label for="gap">메지간격(mm):</label>
+    <input type="text" id="gap" placeholder="메지간격(mm)">
+    
+    <button onclick="calculateBricks()">계산하기</button>
+    
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateBricks() {
+            // 입력값 가져오기
+            const height = parseFloat(document.getElementById('height').value);
+            const width = parseFloat(document.getElementById('width').value);
+            const gap = parseFloat(document.getElementById('gap').value);
+
+            if (isNaN(height) || isNaN(width) || isNaN(gap)) {
+                document.getElementById('result').innerText = "모든 입력값을 숫자로 입력해 주세요.";
+                return;
+            }
+
+            // 계산
+            const totalArea = 10000000; // 총 면적
+            const brickAreaWithGap = (height + gap) * (width + gap);
+            const result = Math.floor(totalArea / brickAreaWithGap);
+            const roundedResult = Math.round(result / 10);
+
+            // 결과 출력
+            document.getElementById('result').innerText = `필요한 벽돌의 개수는 ${roundedResult}개 입니다.`;
+        }
+    </script>
+</body>
+</html>
